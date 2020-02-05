@@ -25,6 +25,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   flutter_svg: ^0.17.1
   timezone: ^0.5.6
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:
@@ -62,6 +63,11 @@ flutter:
     - family: Pixel
       fonts:
         - asset: assets/fonts/LLPixel.ttf
+    - family: CabinSketch
+      fonts:
+        - asset: assets/fonts/CabinSketch-Regular.ttf
+        - asset: assets/fonts/CabinSketch-Bold.ttf
+          weight: 700
 
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

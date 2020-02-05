@@ -35,6 +35,7 @@ class _DashboardState extends State {
         title: const Text(
           'sharetime',
           style: const TextStyle(
+            fontFamily: 'Pixel',
             color: Color(0xff96c6cf)
           ),
         ),

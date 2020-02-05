@@ -15,7 +15,7 @@ class Main extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
-        fontFamily: 'Pixel',
+        fontFamily: 'CabinSketch',
         primaryColor: Colors.white,
         accentColor: Colors.teal,
         brightness: Brightness.light

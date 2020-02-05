@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sharetime/common/timezones.dart';
+import 'package:intl/intl.dart';
 
 class TimeSharing extends StatefulWidget {
   @override
@@ -8,14 +9,13 @@ class TimeSharing extends StatefulWidget {
 }
 
 class _TimeSharingState extends State<TimeSharing> {
-
   String currentTZ = DateTime.now().timeZoneName;
 
   @override
   void initState() {
-
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +58,7 @@ class _TimeSharingState extends State<TimeSharing> {
                       color: Colors.grey,
                     ),
                   ),
+                  height: 50,
                   padding: const EdgeInsets.only(left: 8, right: 8),
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
@@ -68,60 +69,50 @@ class _TimeSharingState extends State<TimeSharing> {
                         'sharetime.in/',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 18),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20,
+                            fontFamily: 'Pixel'),
                       ),
-                      SizedBox(
-                        width: 4,
+                      Text(
+                        '$currentTZ',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20,
+                            fontFamily: 'Pixel'),
                       ),
-                      DropdownButton(
-                          underline: Container(height: 0),
-                          style: const TextStyle(
-                              fontSize: 18,
-                              fontFamily: 'Pixel',
-                              color: Colors.black,
-                              fontWeight: FontWeight.w700),
-                          value: currentTZ,
-                          icon: null,
-                          items: timezones
-                              .map<DropdownMenuItem<String>>((value) {
-
-                            return DropdownMenuItem<String>(
-                              value: value['abbr'],
-                              child: Text(value['abbr']),
-                            );
-                          }).toList(),
-                          onChanged: (String value) {
-                            setState(() {
-                              currentTZ = value;
-                            });
-                          }),
                       const Text(
                         '/',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 18),
+                            fontWeight: FontWeight.w700,
+                            fontSize: 20,
+                            fontFamily: 'Pixel'),
                       ),
-                      SizedBox(
-                        width: 70,
+                      Container(
                         child: Text(
-                          '$',
+                          '${DateFormat('HHmm').format(DateTime.now())}',
                           style: const TextStyle(
-                              fontWeight: FontWeight.w700, fontSize: 18),
+                              fontWeight: FontWeight.w700,
+                              fontSize: 20,
+                              fontFamily: 'Pixel'),
                         ),
                       )
                     ],
                   ),
                 ),
                 InkWell(
-                  onTap: () {
-
-                  },
+                  onTap: () {},
                   child: Container(
                     height: 50,
-                    width: 60,
+                    width: 50,
                     color: Colors.teal,
                     child: Center(
-                      child: SvgPicture.asset('assets/images/share.svg', width: 16, height: 16,),
+                      child: SvgPicture.asset(
+                        'assets/images/share.svg',
+                        width: 16,
+                        height: 16,
+                      ),
                     ),
                   ),
                 )
