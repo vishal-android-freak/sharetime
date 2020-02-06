@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:sharetime/common/timezones.dart';
 import 'package:intl/intl.dart';
+import 'package:share/share.dart';
+import 'package:sharetime/share_time/TimeZoneList.dart';
 
 class TimeSharing extends StatefulWidget {
   @override
@@ -10,10 +11,12 @@ class TimeSharing extends StatefulWidget {
 
 class _TimeSharingState extends State<TimeSharing> {
   String currentTZ = DateTime.now().timeZoneName;
+  String currentTime = DateFormat('HHmm').format(DateTime.now());
 
-  @override
-  void initState() {
-    super.initState();
+  onTimeZoneSelection(tz) {
+    setState(() {
+      currentTZ = tz;
+    });
   }
 
   @override
@@ -54,6 +57,9 @@ class _TimeSharingState extends State<TimeSharing> {
               children: <Widget>[
                 Container(
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(8),
+                        bottomLeft: Radius.circular(8)),
                     border: Border.all(
                       color: Colors.grey,
                     ),
@@ -73,13 +79,26 @@ class _TimeSharingState extends State<TimeSharing> {
                             fontSize: 20,
                             fontFamily: 'Pixel'),
                       ),
-                      Text(
-                        '$currentTZ',
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 20,
-                            fontFamily: 'Pixel'),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(
+                            builder: (_) => TimeZoneList(onTimeZoneSelection: onTimeZoneSelection)
+                          ));
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Colors.purple)),
+                          child: Text(
+                            '$currentTZ',
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 20,
+                                fontFamily: 'Pixel'),
+                          ),
+                        ),
                       ),
                       const Text(
                         '/',
@@ -89,20 +108,43 @@ class _TimeSharingState extends State<TimeSharing> {
                             fontSize: 20,
                             fontFamily: 'Pixel'),
                       ),
-                      Container(
-                        child: Text(
-                          '${DateFormat('HHmm').format(DateTime.now())}',
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w700,
-                              fontSize: 20,
-                              fontFamily: 'Pixel'),
+                      InkWell(
+                        onTap: () async {
+                          var time = await showTimePicker(
+                              context: context, initialTime: TimeOfDay.now());
+                          if (time != null) {
+                            setState(() {
+                              final now = DateTime.now();
+                              currentTime = DateFormat('HHmm').format(DateTime(
+                                  now.year,
+                                  now.month,
+                                  now.day,
+                                  time.hour,
+                                  time.minute));
+                            });
+                          }
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              border: Border.all(color: Colors.teal)),
+                          child: Text(
+                            currentTime,
+                            style: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 20,
+                                fontFamily: 'Pixel'),
+                          ),
                         ),
                       )
                     ],
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Share.share('Open the link to check the time in your timezone\n\nhttps://sharetime.in/$currentTZ/$currentTime');
+                  },
                   child: Container(
                     height: 50,
                     width: 50,
@@ -118,6 +160,25 @@ class _TimeSharingState extends State<TimeSharing> {
                 )
               ],
             ),
+            SizedBox(
+              height: 8,
+            ),
+            const Text(
+                'Tap on the boxes above to edit the timezone and time before sharing',
+                textAlign: TextAlign.center),
+            SizedBox(
+              height: 24,
+            ),
+            RaisedButton(
+              elevation: 0,
+              onPressed: () {},
+              color: Colors.blueAccent,
+              child: Text(
+                'Add Calendar Event',
+                style: const TextStyle(
+                    color: Colors.white, fontWeight: FontWeight.w700),
+              ),
+            )
           ],
         ),
       ),

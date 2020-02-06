@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sharetime/dashboard/Dashboard.dart';
+import 'package:sharetime/share_time/TimeZoneList.dart';
 import 'package:timezone/data/latest.dart';
 
 void main() {
@@ -20,7 +21,11 @@ class Main extends StatelessWidget {
         accentColor: Colors.teal,
         brightness: Brightness.light
       ),
-      home: Dashboard()
+      initialRoute: '/',
+      routes: {
+        '/': (context) => Dashboard(),
+        '/timezones': (context) => TimeZoneList()
+      },
     );
   }
 }

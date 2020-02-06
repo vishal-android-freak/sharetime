@@ -26,6 +26,7 @@ dependencies:
   flutter_svg: ^0.17.1
   timezone: ^0.5.6
   intl: ^0.16.1
+  share: ^0.6.3+5
 
 dev_dependencies:
   flutter_test:
