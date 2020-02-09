@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sharetime/common/NowTz.dart';
 import 'package:sharetime/common/ShowParsedTz.dart';
 import 'package:sharetime/meetings/Meetings.dart';
-import 'package:sharetime/misc/Misc.dart';
 import 'package:sharetime/share_time/TimeSharing.dart';
 import 'package:uni_links/uni_links.dart';
 import 'package:flutter/services.dart' show PlatformException;
@@ -33,10 +33,9 @@ class _DashboardState extends State {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ShowParsedTz(data: {
+                    builder: (context) => NowTz(tzData: {
                           "type": "tz",
                           "tz": splitLink[1],
-                          "time": null
                         })));
           } else {
             Navigator.push(
@@ -54,10 +53,9 @@ class _DashboardState extends State {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => ShowParsedTz(data: {
+                    builder: (context) => NowTz(tzData: {
                           "type": "continent",
                           "tz": '${splitLink[1]}/${splitLink[2]}',
-                          "time": null
                         })));
           } else {
             Navigator.push(
@@ -76,7 +74,7 @@ class _DashboardState extends State {
 
   int bottomNavBarIndex = 0;
 
-  List<Widget> components = [TimeSharing(), Meetings(), Misc()];
+  List<Widget> components = [TimeSharing(), Meetings()];
 
   onTabChange(index) {
     setState(() {
@@ -87,36 +85,50 @@ class _DashboardState extends State {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        brightness: Brightness.dark,
-        title: const Text(
-          'sharetime',
-          style: const TextStyle(fontFamily: 'Pixel', color: Color(0xff96c6cf)),
+        appBar: AppBar(
+          actions: <Widget>[
+            InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed('/how');
+              },
+              child: SvgPicture.asset('assets/images/question.svg',
+                  height: 24, width: 24),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+          ],
+          brightness: Brightness.dark,
+          title: const Text(
+            'sharetime',
+            style:
+                const TextStyle(fontFamily: 'Pixel', color: Color(0xff96c6cf)),
+          ),
         ),
-      ),
-      body: components[bottomNavBarIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: onTabChange,
-        selectedItemColor: Color(0xff96c6cf),
-        currentIndex: bottomNavBarIndex,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                'assets/images/clock.svg',
-                height: 20,
-                width: 20,
-              ),
-              title: Text('time')),
-          BottomNavigationBarItem(
-              icon: SvgPicture.asset('assets/images/meeting.svg',
-                  height: 20, width: 20),
-              title: Text('meetings')),
-          BottomNavigationBarItem(
-              icon: SvgPicture.asset('assets/images/question.svg',
-                  height: 20, width: 20),
-              title: Text('how'))
-        ],
-      ),
-    );
+        body: components[0]
+//      body: components[bottomNavBarIndex],
+//      bottomNavigationBar: BottomNavigationBar(
+//        onTap: onTabChange,
+//        selectedItemColor: Color(0xff96c6cf),
+//        currentIndex: bottomNavBarIndex,
+//        items: <BottomNavigationBarItem>[
+//          BottomNavigationBarItem(
+//              icon: SvgPicture.asset(
+//                'assets/images/clock.svg',
+//                height: 20,
+//                width: 20,
+//              ),
+//              title: Text('time')),
+//          BottomNavigationBarItem(
+//              icon: SvgPicture.asset('assets/images/meeting.svg',
+//                  height: 20, width: 20),
+//              title: Text('meetings')),
+//          BottomNavigationBarItem(
+//              icon: SvgPicture.asset('assets/images/question.svg',
+//                  height: 20, width: 20),
+//              title: Text('how'))
+//        ],
+//      ),
+        );
   }
 }

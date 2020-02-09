@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sharetime/common/ShowParsedTz.dart';
 import 'package:sharetime/dashboard/Dashboard.dart';
+import 'package:sharetime/how/How.dart';
 import 'package:sharetime/share_time/TimeZoneList.dart';
 import 'package:timezone/data/latest.dart';
 
@@ -26,7 +26,7 @@ class Main extends StatelessWidget {
       routes: {
         '/': (context) => Dashboard(),
         '/timezones': (context) => TimeZoneList(),
-        '/parseTz': (context) => ShowParsedTz()
+        '/how': (context) => How()
       },
     );
   }

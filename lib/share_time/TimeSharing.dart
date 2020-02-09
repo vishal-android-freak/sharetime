@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 import 'package:share/share.dart';
 import 'package:sharetime/share_time/TimeZoneList.dart';
+import 'package:add_2_calendar/add_2_calendar.dart';
+
 
 class TimeSharing extends StatefulWidget {
   @override
@@ -12,6 +14,7 @@ class TimeSharing extends StatefulWidget {
 class _TimeSharingState extends State<TimeSharing> {
   String currentTZ = DateTime.now().timeZoneName;
   String currentTime = DateFormat('HHmm').format(DateTime.now());
+  DateTime currentDateTime = DateTime.now();
 
   onTimeZoneSelection(tz) {
     setState(() {
@@ -171,7 +174,16 @@ class _TimeSharingState extends State<TimeSharing> {
             ),
             RaisedButton(
               elevation: 0,
-              onPressed: () {},
+              onPressed: () {
+                final Event event = Event(
+                  title: 'Event title',
+                  description: 'Event description',
+                  location: 'Event location',
+                  startDate: currentDateTime,
+                  endDate: currentDateTime
+                );
+                Add2Calendar.addEvent2Cal(event);
+              },
               color: Colors.blueAccent,
               child: Text(
                 'Add Calendar Event',

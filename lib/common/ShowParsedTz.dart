@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sharetime/common/timezones.dart';
 import 'package:timezone/standalone.dart';
 import 'package:intl/intl.dart';
+import 'package:add_2_calendar/add_2_calendar.dart';
 
 class ShowParsedTz extends StatefulWidget {
   final Map<String, String> data;
@@ -16,6 +17,7 @@ class _ShowParsedTzState extends State<ShowParsedTz> {
   String parsedTime, location, offset, convertedTime, userTz;
   var filteredLocation;
   Location validLoc;
+  var userParsedTime;
 
   @override
   void initState() {
@@ -42,7 +44,7 @@ class _ShowParsedTzState extends State<ShowParsedTz> {
         int.parse(parsedTime.substring(2, 4)));
     var userTZData = timezones.firstWhere((timezone) =>
     timezone['abbr'] == currentTime.timeZoneName)['utc'];
-    var userParsedTime = TZDateTime.from(
+    userParsedTime = TZDateTime.from(
         tzParsedTime,
         getValidLocation(userTZData));
     userTz = userTZData[0];
@@ -138,7 +140,16 @@ class _ShowParsedTzState extends State<ShowParsedTz> {
             ),
             RaisedButton(
               elevation: 0,
-              onPressed: () {},
+              onPressed: () {
+                final Event event = Event(
+                    title: 'Event title',
+                    description: 'Event description',
+                    location: 'Event location',
+                    startDate: userParsedTime,
+                    endDate: userParsedTime
+                );
+                Add2Calendar.addEvent2Cal(event);
+              },
               color: Colors.blueAccent,
               child: Text(
                 'Add Calendar Event',
