@@ -3,9 +3,11 @@ import 'package:sharetime/dashboard/Dashboard.dart';
 import 'package:sharetime/how/How.dart';
 import 'package:sharetime/share_time/TimeZoneList.dart';
 import 'package:timezone/data/latest.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 void main() {
   initializeTimeZones();
+  FlutterError.onError = Crashlytics.instance.recordFlutterError;
   runApp(Main());
 }
 

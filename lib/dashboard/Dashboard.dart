@@ -25,17 +25,16 @@ class _DashboardState extends State {
     try {
       String initialLink = await getInitialLink();
       if (initialLink != null) {
-        initialLink = initialLink.replaceAll("https://", "");
-        List<String> splitLink = initialLink.split('/');
-        if (splitLink.length == 3) {
+        var parsedLink = Uri.parse(initialLink).pathSegments;
+        if (parsedLink.length == 2) {
           //eg. https://sharetime.in/IST/1030
-          if (splitLink[2] == 'now') {
+          if (parsedLink[1] == 'now') {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => NowTz(tzData: {
                           "type": "tz",
-                          "tz": splitLink[1],
+                          "tz": parsedLink[0],
                         })));
           } else {
             Navigator.push(
@@ -43,19 +42,19 @@ class _DashboardState extends State {
                 MaterialPageRoute(
                     builder: (context) => ShowParsedTz(data: {
                           "type": "tz",
-                          "tz": splitLink[1],
-                          "time": splitLink[2]
+                          "tz": parsedLink[0],
+                          "time": parsedLink[1]
                         })));
           }
-        } else if (splitLink.length == 4) {
+        } else if (parsedLink.length == 3) {
           //eg. https://sharetime.in/Asia/Kolkata/1030
-          if (splitLink[3] == 'now') {
+          if (parsedLink[2] == 'now') {
             Navigator.push(
                 context,
                 MaterialPageRoute(
                     builder: (context) => NowTz(tzData: {
                           "type": "continent",
-                          "tz": '${splitLink[1]}/${splitLink[2]}',
+                          "tz": '${parsedLink[0]}/${parsedLink[1]}',
                         })));
           } else {
             Navigator.push(
@@ -63,8 +62,8 @@ class _DashboardState extends State {
                 MaterialPageRoute(
                     builder: (context) => ShowParsedTz(data: {
                           "type": "continent",
-                          "tz": '${splitLink[1]}/${splitLink[2]}',
-                          "time": splitLink[3]
+                          "tz": '${parsedLink[0]}/${parsedLink[1]}',
+                          "time": parsedLink[2]
                         })));
           }
         }

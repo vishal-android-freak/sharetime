@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "788538098726",
+    "firebase_url": "https://showtime-ist.firebaseio.com",
+    "project_id": "showtime-ist",
+    "storage_bucket": "showtime-ist.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:788538098726:android:4027ca51275932606612e7",
+        "android_client_info": {
+          "package_name": "vaf.vishal.sharetime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "788538098726-tdpjh76a3v7ph7n6qek7u2qcpsliepub.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2Hi3evsXYenzRtKa-7Re5sADPs4_fczE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "788538098726-tdpjh76a3v7ph7n6qek7u2qcpsliepub.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
